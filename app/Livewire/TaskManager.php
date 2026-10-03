@@ -67,8 +67,8 @@ class TaskManager extends Component
         return [
             'title' => 'required|string|min:3|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'nullable|exists:categories,id',
-            'due_date' => 'nullable|date',
+            'category_id' => 'required|exists:categories,id',
+            'due_date' => 'required|date',
             'status' => 'required|in:Pending,Completed',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Max 2MB
         ];

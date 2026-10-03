@@ -42,10 +42,11 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                     <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">
-                        Category
+                        Category <span class="text-rose-600">*</span>
                     </label>
                     <select 
                         wire:model="category_id"
+                        required
                         class="w-full px-4 py-3 rounded-xl border border-stone-300 text-stone-900 text-sm focus:ring-eucalyptus-600 focus:border-eucalyptus-600 transition bg-stone-50/30"
                     >
                         <option value="">Select category</option>
@@ -58,11 +59,12 @@
 
                 <div>
                     <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-2">
-                        Due Date
+                        Due Date <span class="text-rose-600">*</span>
                     </label>
                     <input 
                         type="date" 
                         wire:model="due_date"
+                        required
                         class="w-full px-4 py-3 rounded-xl border border-stone-300 text-stone-900 text-sm focus:ring-eucalyptus-600 focus:border-eucalyptus-600 transition bg-stone-50/30"
                     >
                     @error('due_date') <span class="text-rose-600 text-xs mt-1.5 block font-medium">{{ $message }}</span> @enderror

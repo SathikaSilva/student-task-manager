@@ -271,9 +271,10 @@
                     <!-- Category & Due Date Row -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Category</label>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Category <span class="text-rose-600">*</span></label>
                             <select 
                                 wire:model="category_id"
+                                required
                                 class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-stone-900 text-sm focus:ring-eucalyptus-600 focus:border-eucalyptus-600 transition"
                             >
                                 <option value="">Select category</option>
@@ -285,10 +286,11 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Due Date</label>
+                            <label class="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">Due Date <span class="text-rose-600">*</span></label>
                             <input 
                                 type="date" 
                                 wire:model="due_date"
+                                required
                                 class="w-full px-4 py-2.5 rounded-xl border border-stone-300 text-stone-900 text-sm focus:ring-eucalyptus-600 focus:border-eucalyptus-600 transition"
                             >
                             @error('due_date') <span class="text-rose-600 text-xs mt-1 block font-medium">{{ $message }}</span> @enderror

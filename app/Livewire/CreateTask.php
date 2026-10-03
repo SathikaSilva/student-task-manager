@@ -19,8 +19,8 @@ class CreateTask extends Component
     protected $rules = [
         'title' => 'required|string|max:255',
         'description' => 'nullable|string',
-        'category_id' => 'nullable|exists:categories,id',
-        'due_date' => 'nullable|date',
+        'category_id' => 'required|exists:categories,id',
+        'due_date' => 'required|date',
         'status' => 'required|in:Pending,Completed',
         'image' => 'nullable|image|max:2048',
     ];
