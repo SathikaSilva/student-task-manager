@@ -32,6 +32,7 @@ RUN npm run build
 # Touch sqlite database file & set permissions
 RUN touch /app/database/database.sqlite
 RUN chmod -R 777 /app/storage /app/database
+RUN php artisan storage:link
 
 # Expose port and start server
 EXPOSE 10000
