@@ -17,11 +17,29 @@
         <!-- Scripts & Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+        <!-- Dark Mode Script -->
+        <script>
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+            }
+            
+            function toggleDarkMode() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            }
+        </script>
     </head>
-    <body class="font-sans antialiased bg-plaster text-slate-800">
+    <body class="font-sans antialiased bg-plaster dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
         <x-banner />
 
-        <div class="min-h-screen flex flex-col md:flex-row bg-plaster">
+        <div class="min-h-screen flex flex-col md:flex-row bg-plaster dark:bg-slate-900 transition-colors duration-300">
             
             <!-- Sidebar Navigation (Desktop) -->
             <aside class="bg-eucalyptus-700 text-white w-full md:w-64 shrink-0 hidden md:flex flex-col justify-between min-h-screen border-r border-eucalyptus-800/40">
@@ -83,6 +101,12 @@
                     <span class="font-bold text-sm text-white">Student Task Manager</span>
                 </div>
 
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleDarkMode()" class="text-eucalyptus-100 hover:text-white p-1" title="Toggle Dark Mode">
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+
                 <a href="{{ route('profile.show') }}" class="flex items-center gap-2 bg-white/10 border border-white/20 pl-1.5 pr-2.5 py-1 rounded-full text-xs font-semibold text-white">
                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && Auth::user()->profile_photo_url)
                         <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="w-6 h-6 rounded-full object-cover">
@@ -99,20 +123,28 @@
             <div class="flex-1 flex flex-col min-w-0">
                 
                 <!-- Desktop Top Navigation Header Bar -->
-                <header class="bg-white border-b border-stone-200/80 px-6 py-4 hidden md:flex items-center justify-between sticky top-0 z-30 shadow-2xs">
+                <header class="bg-white dark:bg-slate-800 border-b border-stone-200/80 dark:border-slate-700/80 px-6 py-4 hidden md:flex items-center justify-between sticky top-0 z-30 shadow-2xs transition-colors duration-300">
                     <div class="flex items-center gap-3">
-                        <h2 class="text-sm font-semibold text-stone-500">Welcome back, <span class="text-stone-900 font-bold">{{ Auth::user()->name }}</span></h2>
+                        <h2 class="text-sm font-semibold text-stone-500 dark:text-slate-400">Welcome back, <span class="text-stone-900 dark:text-white font-bold">{{ Auth::user()->name }}</span></h2>
                     </div>
 
                     <div class="flex items-center gap-4">
+                        <!-- Dark Mode Toggle Button -->
+                        <button onclick="toggleDarkMode()" class="p-2 rounded-xl text-stone-400 dark:text-slate-400 hover:text-stone-600 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-700 transition relative" title="Toggle Dark Mode">
+                            <!-- Moon Icon (shows in light mode) -->
+                            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            <!-- Sun Icon (shows in dark mode) -->
+                            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </button>
+
                         <!-- Bell Icon -->
-                        <button class="p-2 rounded-xl text-stone-400 hover:text-stone-600 hover:bg-stone-100 transition relative">
+                        <button class="p-2 rounded-xl text-stone-400 dark:text-slate-400 hover:text-stone-600 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-700 transition relative">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                            <span class="w-2 h-2 rounded-full bg-amber-500 absolute top-2 right-2 border border-white"></span>
+                            <span class="w-2 h-2 rounded-full bg-amber-500 absolute top-2 right-2 border border-white dark:border-slate-800"></span>
                         </button>
 
                         <!-- User Profile Pill (Linked to Profile Page) -->
-                        <a href="{{ route('profile.show') }}" title="Go to Profile" class="flex items-center gap-2.5 bg-stone-50 hover:bg-stone-100 border border-stone-200/80 pl-2 pr-3 py-1.5 rounded-full transition group">
+                        <a href="{{ route('profile.show') }}" title="Go to Profile" class="flex items-center gap-2.5 bg-stone-50 dark:bg-slate-700 hover:bg-stone-100 dark:hover:bg-slate-600 border border-stone-200/80 dark:border-slate-600 pl-2 pr-3 py-1.5 rounded-full transition group">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && Auth::user()->profile_photo_url)
                                 <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="w-7 h-7 rounded-full object-cover border border-stone-200">
                             @else
@@ -120,7 +152,7 @@
                                     {{ substr(Auth::user()->name, 0, 1) }}
                                 </div>
                             @endif
-                            <span class="text-xs font-bold text-stone-800 group-hover:text-eucalyptus-800 transition">{{ Auth::user()->name }}</span>
+                            <span class="text-xs font-bold text-stone-800 dark:text-slate-200 group-hover:text-eucalyptus-800 dark:group-hover:text-white transition">{{ Auth::user()->name }}</span>
                         </a>
                     </div>
                 </header>
