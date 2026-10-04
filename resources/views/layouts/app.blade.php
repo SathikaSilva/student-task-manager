@@ -107,16 +107,17 @@
                         <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </button>
 
-                <a href="{{ route('profile.show') }}" class="flex items-center gap-2 bg-white/10 border border-white/20 pl-1.5 pr-2.5 py-1 rounded-full text-xs font-semibold text-white">
-                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && Auth::user()->profile_photo_url)
-                        <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="w-6 h-6 rounded-full object-cover">
-                    @else
-                        <div class="w-6 h-6 rounded-full bg-white text-eucalyptus-800 font-bold text-xs flex items-center justify-center uppercase">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
-                    @endif
-                    <span>{{ Auth::user()->name }}</span>
-                </a>
+                    <a href="{{ route('profile.show') }}" class="flex items-center gap-2 bg-white/10 border border-white/20 pl-1.5 pr-2.5 py-1 rounded-full text-xs font-semibold text-white">
+                        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && Auth::user()->profile_photo_url)
+                            <img src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" class="w-6 h-6 rounded-full object-cover">
+                        @else
+                            <div class="w-6 h-6 rounded-full bg-white text-eucalyptus-800 font-bold text-xs flex items-center justify-center uppercase">
+                                {{ substr(Auth::user()->name, 0, 1) }}
+                            </div>
+                        @endif
+                        <span>{{ Auth::user()->name }}</span>
+                    </a>
+                </div>
             </div>
 
             <!-- Main Content Area -->
